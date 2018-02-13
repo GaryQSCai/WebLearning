@@ -1,0 +1,130 @@
+/****** base style *******/
+* {
+  box-sizing: border-box;
+  font-family: Garamond, Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 175%
+}
+
+.row {
+  width : 100%;
+}
+
+@media (min-width : 992px) {
+  .col-dt-1, .col-dt-2, .col-dt-3, .col-dt-4, .col-dt-5, .col-dt-6, .col-dt-7, .col-dt-8, .col-dt-9, .col-dt-10, .col-dt-11, .col-dt-12 {
+    float: left;
+  }
+  .col-dt-1 {
+    width : 8.33%;
+  }
+  .col-dt-2 {
+    width : 16.66%;
+  }
+  .col-dt-3 {
+    width : 25%;
+  }
+  .col-dt-4 {
+    width : 33.33%;
+  }
+  .col-dt-5 {
+    width : 41.66%;
+  }
+  .col-dt-6 {
+    width : 50%;
+  }
+  .col-dt-7 {
+    width : 58.33%;
+  }
+  .col-dt-8 {
+    width : 66.66%;
+  }
+  .col-dt-9 {
+    width : 75%;
+  }
+  .col-dt-10 {
+    width :83.33%;
+  }
+  .col-dt-11 {
+    width :91.66%;
+  }
+  .col-dt-12 {
+    width : 100%;
+  }
+}
+
+@media (min-width : 768px) and (max-width: 991px) {
+  .col-pad-1, .col2-pad-2, .col-pad-3, .col-pad-4, .col-pad-5, .col-pad-6, .col-pad-7, .col-pad-8, .col-pad-9, .col-pad-10, .col-pad-11, .col-pad-12 {
+    float: left;
+  }
+  .col-pad-1 {
+    width : 8.33%;
+  }
+  .col-pad-2 {
+    width : 16.66%;
+  }
+  .col-pad-3 {
+    width : 25%;
+  }
+  .col-pad-4 {
+    width : 33.33%;
+  }
+  .col-pad-5 {
+    width : 41.66%;
+  }
+  .col-pad-6 {
+    width : 50%;
+  }
+  .col-pad-7 {
+    width : 58.33%;
+  }
+  .col-pad-8 {
+    width : 66.66%;
+  }
+  .col-pad-9 {
+    width : 75%;
+  }
+  .col-pad-10 {
+    width :83.33%;
+  }
+  .col-pad-11 {
+    width :91.66%;
+  }
+  .col-pad-12 {
+    width : 100%;
+  }
+}
+
+.row section {
+  background-color: rgba(255, 255, 128, .5);
+  border: 1px solid black;
+  padding : 1em;
+  padding-top: 1.5em;
+  margin: 1em;
+  position: relative;
+}
+
+span {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 125%;
+  border: 1px solid black;
+  margin-bottom: 16px;
+}
+#Shanghai{
+  background-color: blue;
+  color: white;
+}
+
+#Tokyo{
+  background-color: #DEB887;
+  color: brown;
+}
+
+#NewYork{
+  background-color: yellow;
+  color: red;
+}
