@@ -1,0 +1,14 @@
+body {
+  box-sizing: border-box;
+}
+a.dropdown-item:hover {
+  background-color: #b53387;
+}
+
+.textbox {
+  box-sizing: border-box;
+  box-shadow: 0 0 20px grey;
+  border: 1px solid grey;
+  padding: 1em;
+  margin-top: 1em;
+}
