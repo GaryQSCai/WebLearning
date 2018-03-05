@@ -42,6 +42,7 @@ function ShoppingListService() {
     };
     boughtlist.push(item);
     tobuylist.splice(tobuyindex,1);
+    console.log(tobuylist.length)
   };
 
   service.gettobuylist = function () {
