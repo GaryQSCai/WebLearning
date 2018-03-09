@@ -36,13 +36,13 @@ function ShoppingListService() {
     var itemname, itemqty;
     itemname = tobuylist[tobuyindex].name;
     itemqty = tobuylist[tobuyindex].quantity;
+
     var item = {
       name: itemname,
       quantity: itemqty
     };
     boughtlist.push(item);
     tobuylist.splice(tobuyindex,1);
-    console.log(tobuylist.length)
   };
 
   service.gettobuylist = function () {

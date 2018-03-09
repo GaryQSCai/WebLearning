@@ -1,0 +1,11 @@
+<ul class="list-group" ng-repeat="item in items">
+  <li class="list-group-item"  ng-init="showRemove=false"
+  ng-mouseover="showRemove=true" ng-mouseleave="showRemove=false">
+    {{$index+1}}, {{item.name}},  {{item.short_name}},  {{item.description}}
+    <button class="btn btn-secondary btn-sm ml-2" ng-click="remove({whatever:$index});" ng-if='showRemove'>
+      Don't want this one
+    </button>
+  </li>
+</ul>
+
+<span class="text-warning" ng-if="items.length==0">Nothing Found</span>
