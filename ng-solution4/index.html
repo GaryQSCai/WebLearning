@@ -8,21 +8,14 @@
     <script src="angular.min.js"></script>
     <script src="angular-ui-router.min.js"></script>
     <script src="app.js"></script>
+    <script src="routes.js"></script>
   </head>
 <body ng-controller = "MenuController as MenuCtrl">
    <div class="container" >
-    <h1>Menu categories</h1>
+    <h1>Welcome to our Restaurant!</h1>
+    <ui-view></ui-view>
 
-    <!-- <form class="form-inline">
-      <div class="form-group mr-3 mb-2">
-        <input type="text" ng-model="input" placeholder="search term" class="form-control">
-      </div>
-      <div class="form-group mb-2">
-        <button class="btn btn-primary" ng-click="NDCtrl.search();">Narrow It Down For Me!</button>
-      </div>
-    </form>
-    <hr class="mt-2"> -->
-    <menu-categories items="MenuCtrl.menuCategories"></menu-categories>
+
   </div>
 </body>
 <script src="js/jquery-3.3.1.min.js"></script>
