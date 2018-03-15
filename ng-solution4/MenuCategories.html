@@ -1,5 +1,12 @@
-<ul class="list-group" ng-repeat="item in $ctrl.items">
-  <li ui-sref="MenuCategories.itemDetail({itemId: {{item.short_name}}})" class="list-group-item">
+<nav aria-label="Menu">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#" ui-sref="home">Menu</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Categories</li>
+  </ol>
+</nav>
+
+<ul class="list-group" ng-repeat="item in $ctrl.menuCategories">
+  <a class="list-group-item" ui-sref="itemDetail({itemId:item.short_name})">
     {{$index+1}}, {{item.name}}, {{item.short_name}}
-  </li>
+  </a>
 </ul>

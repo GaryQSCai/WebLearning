@@ -1,1 +1,13 @@
-<span>Item details ...</span>
+<nav aria-label="Menu">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="#" ui-sref="home">Menu</a></li>
+    <li class="breadcrumb-item"><a href="#" ui-sref="MenuCategories">Categories</a></li>
+    <li class="breadcrumb-item active" aria-current="page">{{$ctrl.itemDetails.category.name}}</li>
+  </ol>
+</nav>
+
+<ul class="list-group" ng-repeat="item in $ctrl.itemDetails.menu_items">
+  <li class="list-group-item">
+    {{$index+1}}, {{item.name}}
+  </li>
+</ul>

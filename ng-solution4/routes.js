@@ -16,23 +16,25 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
   // Home page
   .state('home', {
     url: '/',
-    template: '<a ui-sref="MenuCategories">Menu Categories</a>'
+    templateUrl: 'home.html'
   })
 
   // Premade list page
   .state('MenuCategories', {
     url: '/menu-categories',
-    template: '<menu-categories items="MenuCtrl.menuCategories"></menu-categories> <ui-view></ui-view>'
-    }
-  )
-  // // Item detail
-  .state('MenuCategories.itemDetail', {
+    component: 'menuCategories'
+  })
+  // Item detail
+  .state('itemDetail', {
     url: '/item-details/{itemId}',
     // template: "<item-detail itemId='{{itemId}}'></item-detail>",
-    template: '<span>details template</span>',
+    component: 'itemDetail',
     // controller: 'ItemDetailController as itemDetail',
-    params: {
-      itemId: null
+    resolve: {
+      itemId: function($stateParams) {
+          console.log('statparams.itemId',$stateParams.itemId);
+          return $stateParams.itemId;
+        }
     }
   });
 

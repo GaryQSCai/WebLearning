@@ -2,22 +2,38 @@
 'use strict';
 
 angular.module('MenuApp', ['ui.router'])
-.controller('MenuController', MenuController)
+
 .service('MenuDataService', MenuDataService)
 .component("menuCategories",{
   templateUrl: 'MenuCategories.html',
-  bindings: {
-    items: '<'
-  }
+  controller: MenuCategoriesController
 })
 .component("itemDetail",{
   templateUrl: 'itemDetails.html',
-  controller: 'ItemDetailController as DetailCtrl',
+  controller: ItemDetailController,
   bindings: {
     itemId: '<'
   }
 });
 
+
+
+MenuCategoriesController.$inject = ['MenuDataService'];
+function MenuCategoriesController(MenuDataService){
+  var MenuCtrl = this;
+  console.log("MenuCategoriesController");
+  MenuCtrl.menuCategories = [];
+  var promise = MenuDataService.getMenuCategories();
+  promise.then(function(response){
+    MenuCtrl.menuCategories = response.data;
+    console.log('data: ', MenuCtrl.menuCategories);
+  })
+  .catch(function (error) {
+    console.log("Something went terribly wrong.");
+  });
+}
+
+//
 ItemDetailController.$inject = ['MenuDataService'];
 function ItemDetailController(MenuDataService){
   var DetailCtrl = this;
@@ -25,21 +41,7 @@ function ItemDetailController(MenuDataService){
   console.log("item id is", DetailCtrl.itemId);
   promise.then(function(response){
     DetailCtrl.itemDetails = response.data;
-  })
-  .catch(function (error) {
-    console.log("Something went terribly wrong.");
-  });
-}
-
-
-MenuController.$inject = ['MenuDataService'];
-function MenuController(MenuDataService) {
-  var MenuCtrl = this;
-  MenuCtrl.menuCategories = [];
-  var promise = MenuDataService.getMenuCategories();
-  promise.then(function(response){
-    MenuCtrl.menuCategories = response.data;
-    console.log('data: ', MenuCtrl.menuCategories);
+    console.log("item details: ",DetailCtrl.itemDetails)
   })
   .catch(function (error) {
     console.log("Something went terribly wrong.");
@@ -68,6 +70,5 @@ function MenuDataService($http) {
     return response;
   };
 }
-
 
 })();
