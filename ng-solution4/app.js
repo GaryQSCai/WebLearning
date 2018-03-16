@@ -20,55 +20,80 @@ angular.module('MenuApp', ['ui.router'])
 
 MenuCategoriesController.$inject = ['MenuDataService'];
 function MenuCategoriesController(MenuDataService){
-  var MenuCtrl = this;
-  console.log("MenuCategoriesController");
-  MenuCtrl.menuCategories = [];
-  var promise = MenuDataService.getMenuCategories();
-  promise.then(function(response){
-    MenuCtrl.menuCategories = response.data;
-    console.log('data: ', MenuCtrl.menuCategories);
-  })
-  .catch(function (error) {
-    console.log("Something went terribly wrong.");
-  });
+  this.$onInit = function () {
+    var MenuCtrl = this;
+    MenuCtrl.menuCategories = MenuDataService.menuCategories;
+  };
+  this.$onDestroy = function () {
+        console.log('component is destroyed');
+      }
 }
 
 //
-ItemDetailController.$inject = ['MenuDataService'];
-function ItemDetailController(MenuDataService){
+ItemDetailController.$inject = ['MenuDataService','$scope'];
+function ItemDetailController(MenuDataService,$scope){
   var DetailCtrl = this;
-  var promise = MenuDataService.getItemDetails(DetailCtrl.itemId);
-  console.log("item id is", DetailCtrl.itemId);
+  MenuDataService.getItemDetails(DetailCtrl.itemId);
+  DetailCtrl.itemDetails = MenuDataService.findDetails(DetailCtrl.itemId);
+  $scope.$on('Item Details Change', function() {
+    console.log("There's change in item details");
+    DetailCtrl.itemDetails = MenuDataService.findDetails(DetailCtrl.itemId);
+  });
+}
+
+MenuDataService.$inject = ['$http','$rootScope'];
+function MenuDataService($http,$rootScope) {
+  var service = this;
+  var menu_url = "https://davids-restaurant.herokuapp.com/categories.json";
+  var item_url = "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
+  service.itemDetails = [];
+
+  service.getMenuCategories = function () {
+    var promise = $http({
+      method: "GET",
+      url: (menu_url)
+    });
+    return promise;
+  };
+
+  service.getItemDetails = function (itemId) {
+    if (service.findDetails(itemId)) {
+      return;
+    }
+    var promise = $http({
+      method: "GET",
+      url: (item_url+itemId)
+    });
+    promise.then(function(response){
+      console.log("go online to get item details");
+      service.itemDetails.push(response.data);
+      $rootScope.$broadcast('Item Details Change');
+    })
+    .catch(function (error) {
+      console.log("Something went terribly wrong.");
+    });
+  };
+
+  service.findDetails = function(itemId){
+    for (var i=0;i<service.itemDetails.length;i++) {
+      if (service.itemDetails[i].category.short_name == itemId) {
+        console.log("fetch data from cache: ",service.itemDetails[i].category.name)
+        return service.itemDetails[i];
+      }
+    }
+    return null;
+  }
+
+  var promise = service.getMenuCategories();
   promise.then(function(response){
-    DetailCtrl.itemDetails = response.data;
-    console.log("item details: ",DetailCtrl.itemDetails)
+    service.menuCategories = response.data;
+    console.log('data: ', service.menuCategories);
   })
   .catch(function (error) {
     console.log("Something went terribly wrong.");
   });
-}
 
-MenuDataService.$inject = ['$http'];
-function MenuDataService($http) {
-  var service = this;
-  var menu_url = "https://davids-restaurant.herokuapp.com/categories.json";
-  var item_url = "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
 
-  service.getMenuCategories = function () {
-    var response = $http({
-      method: "GET",
-      url: (menu_url)
-    });
-    return response;
-  };
-
-  service.getItemDetails = function (itemId) {
-    var response = $http({
-      method: "GET",
-      url: (item_url+itemId)
-    });
-    return response;
-  };
 }
 
 })();
