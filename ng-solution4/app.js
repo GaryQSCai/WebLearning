@@ -18,15 +18,19 @@ angular.module('MenuApp', ['ui.router'])
 
 
 
-MenuCategoriesController.$inject = ['MenuDataService'];
-function MenuCategoriesController(MenuDataService){
+MenuCategoriesController.$inject = ['MenuDataService','$scope'];
+function MenuCategoriesController(MenuDataService,$scope){
+  var MenuCtrl = this;
   this.$onInit = function () {
-    var MenuCtrl = this;
     MenuCtrl.menuCategories = MenuDataService.menuCategories;
   };
   this.$onDestroy = function () {
-        console.log('component is destroyed');
+        console.log('Categories component is destroyed');
       }
+  $scope.$on('Categories Change', function() {
+        console.log("There's change in categories");
+        MenuCtrl.menuCategories = MenuDataService.menuCategories;
+  });
 }
 
 //
@@ -87,6 +91,7 @@ function MenuDataService($http,$rootScope) {
   var promise = service.getMenuCategories();
   promise.then(function(response){
     service.menuCategories = response.data;
+    $rootScope.$broadcast('Categories Change');
     console.log('data: ', service.menuCategories);
   })
   .catch(function (error) {
