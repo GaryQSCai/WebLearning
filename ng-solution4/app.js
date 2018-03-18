@@ -2,7 +2,6 @@
 'use strict';
 
 angular.module('MenuApp', ['ui.router'])
-
 .service('MenuDataService', MenuDataService)
 .component("menuCategories",{
   templateUrl: 'MenuCategories.html',
@@ -14,14 +13,19 @@ angular.module('MenuApp', ['ui.router'])
   bindings: {
     itemId: '<'
   }
-});
+})
+.run(InitiateMenuDataService);
 
-
+InitiateMenuDataService.$inject = ['MenuDataService'];
+function InitiateMenuDataService(MenuDataService){
+  return;
+}
 
 MenuCategoriesController.$inject = ['MenuDataService','$scope'];
 function MenuCategoriesController(MenuDataService,$scope){
   var MenuCtrl = this;
   this.$onInit = function () {
+    console.log('Categories component is initatied')
     MenuCtrl.menuCategories = MenuDataService.menuCategories;
   };
   this.$onDestroy = function () {
@@ -47,6 +51,7 @@ function ItemDetailController(MenuDataService,$scope){
 
 MenuDataService.$inject = ['$http','$rootScope'];
 function MenuDataService($http,$rootScope) {
+  console.log("MenuDataService got run!");
   var service = this;
   var menu_url = "https://davids-restaurant.herokuapp.com/categories.json";
   var item_url = "https://davids-restaurant.herokuapp.com/menu_items.json?category=";
